@@ -1,0 +1,28 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DB_URL_PG")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id          Int     @id @default(autoincrement())
+    telegramId  String  @unique
+    displayName String
+    username    String
+
+    wallet      Wallet?
+}
+
+model Wallet {
+    id          Int     @id @default(autoincrement())
+    privateKeyHash  String
+    publicKey   String
+    address     String
+    createdAt   DateTime    @default(now())
+
+    ownerId     Int @unique
+    owner       User    @relation(fields: [ownerId], references: [id])
+}
