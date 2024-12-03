@@ -7,7 +7,7 @@ export default class UserRepository {
     async createNewUser(fields: {
         telegramId: string,
         username: string,
-        displayName?: string
+        displayName: string
     }) {
         const user = await prisma.user.create({
             data: {
@@ -15,6 +15,14 @@ export default class UserRepository {
                 displayName: fields.displayName
             }
         });
+        return user;
+    }
+
+    async findUser(filter: any) {
+        const user = await prisma.user.findFirst({
+            where: filter
+        });
+
         return user;
     }
 }

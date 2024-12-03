@@ -1,5 +1,5 @@
-
 import UserRepository from "../database/repository/user.repository";
+
 
 export class UserService {
     repository: UserRepository;
@@ -10,6 +10,12 @@ export class UserService {
 
     async registerUser(fields: { telegramId: string, username: string, displayName?: string }) {
         const user = await this.repository.createNewUser(fields);
+
+        return user;
+    }
+
+    async findUserByTgId(userId: string) {
+        const user = await this.repository.findUser({ telegramId: userId });
 
         return user;
     }
