@@ -7,6 +7,11 @@ generator client {
     provider = "prisma-client-js"
 }
 
+enum WalletActiveStatus {
+    ACTIVE
+    INACTIVE
+}
+
 model User {
     id          Int     @id @default(autoincrement())
     telegramId  String  @unique
@@ -17,12 +22,14 @@ model User {
 }
 
 model Wallet {
-    id          Int     @id @default(autoincrement())
-    privateKeyHash  String
-    publicKey   String
-    address     String
-    createdAt   DateTime    @default(now())
+    id                      Int                 @id @default(autoincrement())
+    privateKey              String              // @TODO: Store the Hash
+    publicKey               String
+    address                 String
+    lastRecordedBalance     BigInt
+    ownerId                 Int                 @unique
+    createdAt               DateTime            @default(now())
+    status                  WalletActiveStatus  @default(INACTIVE) // Before deployment
 
-    ownerId     Int @unique
-    owner       User    @relation(fields: [ownerId], references: [id])
+    owner                   User                @relation(fields: [ownerId], references: [id])
 }
