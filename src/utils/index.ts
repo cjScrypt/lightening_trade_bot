@@ -1,5 +1,8 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
+export * from "./telegram";
+
+
 export const handlePrismaError = (error: any) => {
     if (error instanceof PrismaClientKnownRequestError) {
         if (error.code == "P2002") {
