@@ -6,4 +6,7 @@ export class TelegramUtils {
         return ctx.callbackQuery?.from || ctx.from;
     }
 
+    static isPrivateChat(ctx: ExtendedContext): boolean {
+        return ctx.chat?.type == "private";
+    }
 }
