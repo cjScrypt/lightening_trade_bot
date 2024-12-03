@@ -1,12 +1,12 @@
 import { Telegraf } from "telegraf";
-import { message } from "telegraf/filters";
 
-import APP_SETTINGS from "../utils/app_settings";
+import APP_SETTINGS from "../config";
+import { StartController } from "../controllers";
 
 const setupBot = async () => {
     const bot = new Telegraf(APP_SETTINGS.TG_TOKEN);
 
-    bot.start;
+    bot.start(StartController.processStart);
 
     return bot;
 }

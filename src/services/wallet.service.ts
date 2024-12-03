@@ -4,7 +4,7 @@ import { WalletContractV3R2 } from "@ton/ton";
 import WalletRepository from "../database/repository/wallet.repository";
 
 
-export default class WalletService {
+export class WalletService {
     repository: WalletRepository;
 
     constructor() {

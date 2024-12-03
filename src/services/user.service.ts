@@ -1,7 +1,7 @@
 
 import UserRepository from "../database/repository/user.repository";
 
-class UserService {
+export class UserService {
     repository: UserRepository;
 
     constructor() {
