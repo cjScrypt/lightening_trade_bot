@@ -8,13 +8,18 @@ export class UserService {
         this.repository = new UserRepository();
     }
 
-    async registerUser(fields: { telegramId: string, username: string, displayName?: string }) {
-        const user = await this.repository.createNewUser(fields);
+    async getOrRegisterUser(fields: { telegramId: number, username?: string, firstName: string, lastName?: string}) {
+        let user = await this.repository.findUser({ telegramId: fields.telegramId });
+        let created = false;
+        if (!user) {
+            user = await this.repository.createNewUser(fields);
+            created = true;
+        }
 
-        return user;
+        return { user, created }
     }
 
-    async findUserByTgId(userId: string) {
+    async findUserByTgId(userId: number) {
         const user = await this.repository.findUser({ telegramId: userId });
 
         return user;
