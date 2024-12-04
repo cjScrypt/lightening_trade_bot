@@ -6,9 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node ./dist/server.js",
-    "dev": "nodemon --trace-warnings ./src/index.ts",
-    "generatePrismaClient": "prisma generate",
-    "prismaMigrate": "prisma migrate dev"
+	"setupPrisma": "prisma generate && prisma migrate dev",
+    "dev": "nodemon --trace-warnings ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
