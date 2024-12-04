@@ -1,0 +1,36 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DB_URL_PG")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum WalletActiveStatus {
+    ACTIVE
+    INACTIVE
+}
+
+model User {
+    id          Int         @id @default(autoincrement())
+    telegramId  Int         @unique
+    firstName   String
+    lastName    String?
+    username    String?
+
+    wallet      Wallet?
+}
+
+model Wallet {
+    id                      Int                 @id @default(autoincrement())
+    privateKey              String              // @TODO: Store the Hash
+    publicKey               String
+    address                 String
+    lastRecordedBalance     BigInt
+    ownerId                 Int                 @unique
+    createdAt               DateTime            @default(now())
+    status                  WalletActiveStatus  @default(INACTIVE) // Before deployment
+
+    owner                   User                @relation(fields: [ownerId], references: [id])
+}
