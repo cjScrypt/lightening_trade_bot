@@ -9,7 +9,7 @@ const userService = new UserService();
 export class UserMiddleware {
 
     static async addUserToContext(ctx: ExtendedContext) {
-        const isPrivateChat = TelegramUtils.isPrivateChat(ctx);
+        const isPrivateChat = TelegramUtils.isPrivateChat(ctx.chat);
         if (!isPrivateChat) {
             return;
         }
