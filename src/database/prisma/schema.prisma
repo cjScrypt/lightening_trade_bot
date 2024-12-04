@@ -13,10 +13,11 @@ enum WalletActiveStatus {
 }
 
 model User {
-    id          Int     @id @default(autoincrement())
-    telegramId  String  @unique
-    displayName String
-    username    String
+    id          Int         @id @default(autoincrement())
+    telegramId  Int         @unique
+    firstName   String
+    lastName    String?
+    username    String?
 
     wallet      Wallet?
 }

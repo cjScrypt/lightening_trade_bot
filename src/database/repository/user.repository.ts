@@ -5,9 +5,9 @@ export default class UserRepository {
     constructor() {}
 
     async createNewUser(fields: {
-        telegramId: string,
+        telegramId: number,
         username: string,
-        displayName: string
+        displayName?: string
     }) {
         const user = await prisma.user.create({
             data: {
