@@ -1,16 +1,16 @@
 datasource db {
-    provider = "postgresql"
-    url      = env("DB_URL_PG")
+    provider = "sqlite"
+    url      = env("DB_URL")
 }
 
 generator client {
     provider = "prisma-client-js"
 }
 
-enum WalletActiveStatus {
-    ACTIVE
-    INACTIVE
-}
+// enum WalletActiveStatus {
+//     ACTIVE
+//     INACTIVE
+// }
 
 model User {
     id          Int         @id @default(autoincrement())
@@ -30,7 +30,7 @@ model Wallet {
     lastRecordedBalance     BigInt
     ownerId                 Int                 @unique
     createdAt               DateTime            @default(now())
-    status                  WalletActiveStatus  @default(INACTIVE) // Before deployment
+    status                  String              @default("INACTIVE") // Before deployment
 
     owner                   User                @relation(fields: [ownerId], references: [id])
 }
