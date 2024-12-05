@@ -1,4 +1,5 @@
-import { handlePrismaError } from "../../utils";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+
 import prisma from "../prisma/client";
 
 
@@ -23,7 +24,12 @@ export default class WalletRepository {
             });
             return wallet;
         } catch (error) {
-            handlePrismaError(error);
+            if (error instanceof PrismaClientKnownRequestError) {
+                if (error.code == "P2002") {
+                    throw new Error(`User already owns wallet`);
+                }
+            }
+            throw error;
         }
     }
 
