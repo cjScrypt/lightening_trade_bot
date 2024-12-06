@@ -5,8 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node ./dist/index.js",
-	"setupPrisma": "prisma generate && prisma migrate dev",
+    "start": "pm2 start ./dist/index.js",
+    "setupPrisma": "prisma generate && prisma migrate dev",
     "dev": "nodemon --trace-warnings ./src/index.ts"
   },
   "author": "",
@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "pm2": "^5.4.3",
     "telegraf": "^4.16.3"
   },
   "devDependencies": {
