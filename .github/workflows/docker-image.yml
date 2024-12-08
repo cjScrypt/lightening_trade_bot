@@ -9,29 +9,6 @@ permissions:
 
 # Define the jobs to be executed
 jobs:
-  # Build job
-  Build:
-    # Use the latest Ubuntu runner
-    runs-on: ubuntu-latest
-    # Steps to be executed in the Build job
-    steps:
-      # Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      # Login to DockerHub using secrets for credentials
-      - name: Login to DockerHub
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-      # Build Docker image with a specific tag
-      - name: Build Docker Image
-        env:
-          DB_URL: ${{ secrets.DB_URL }}
-        run: DOCKER_BUILDKIT=1 docker build --build-arg DB_URL=$DB_URL -t cjScrypt/lightening_trade_bot .
-      # Push the built image to DockerHub
-      - name: Push to DockerHub
-        run: docker push cjscrypt/lightening_trade_bot:latest 
   # Deploy job
   Deploy:
     # Use a self-hosted runner for deployment
