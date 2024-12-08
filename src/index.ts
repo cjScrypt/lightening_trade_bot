@@ -8,7 +8,7 @@ const main = async () => {
     const app = express();
     const PORT = 3000;
 
-    configureApp(app);
+    await configureApp(app);
     app.listen(PORT, () => {
         console.log(`======= App running on port ${PORT} =======`);
     })
