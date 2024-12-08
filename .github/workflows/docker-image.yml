@@ -28,7 +28,7 @@ jobs:
       - name: Build Docker Image
         env:
           DB_URL: ${{ secrets.DB_URL }}
-        run: DOCKER_BUILDKIT=1 docker build --build-arg $DB_URL -t cjScrypt/lightening_trade_bot .
+        run: DOCKER_BUILDKIT=1 docker build --build-arg DB_URL=$DB_URL -t cjScrypt/lightening_trade_bot .
       # Push the built image to DockerHub
       - name: Push to DockerHub
         run: docker push cjScrypt/lightening_trade_bot:latest 
