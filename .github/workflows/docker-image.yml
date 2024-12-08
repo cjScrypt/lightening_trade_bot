@@ -15,6 +15,13 @@ jobs:
     runs-on: self-hosted
     # Steps to be executed in the Deploy job
     steps:
+      # Login to DockerHub using secrets for credentials
+      - name: Login to DockerHub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      # Create .env file
       - name: Create .env file
         run: echo "${{ secrets.PROD_ENV_FILE }}" > .env
       # Pull the latest Docker image from DockerHub
@@ -28,7 +35,7 @@ jobs:
           fi
       # Run a new container from the pulled image
       - name: Run the Container
-        run: docker run --env-file .env -d -p 3000:3000 --name lightening_trade_bot-Container cjScrypt/lightening_trade_bot
+        run: docker run --env-file .env -d -p 3000:3000 --name lightening_trade_bot-Container cjscrypt/lightening_trade_bot
       # Remove created .env file after running container
       - name: Clean .env file
         run: rm .env
