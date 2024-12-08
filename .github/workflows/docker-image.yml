@@ -31,7 +31,7 @@ jobs:
         run: DOCKER_BUILDKIT=1 docker build --build-arg DB_URL=$DB_URL -t cjScrypt/lightening_trade_bot .
       # Push the built image to DockerHub
       - name: Push to DockerHub
-        run: docker push cjScrypt/lightening_trade_bot:latest 
+        run: docker push cjscrypt/lightening_trade_bot:latest 
   # Deploy job
   Deploy:
     # Use a self-hosted runner for deployment
@@ -42,7 +42,7 @@ jobs:
         run: echo "${{ secrets.PROD_ENV_FILE }}" > .env
       # Pull the latest Docker image from DockerHub
       - name: Pull the Docker Image
-        run: docker pull cjScrypt/lightening_trade_bot:latest 
+        run: docker pull cjscrypt/lightening_trade_bot:latest 
       # Delete the old container if it exists
       - name: Delete Old Container
         run: |
