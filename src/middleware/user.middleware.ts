@@ -8,7 +8,7 @@ const userService = new UserService();
 
 export class UserMiddleware {
 
-    static async addUserToContext(ctx: ExtendedContext) {
+    static async addUserToContext(ctx: ExtendedContext, next: () => Promise<void>) {
         const isPrivateChat = TelegramUtils.isPrivateChat(ctx.chat);
         if (!isPrivateChat) {
             return;
@@ -18,5 +18,6 @@ export class UserMiddleware {
             return;
         }
         ctx.user = user;
+        await next();
     }
 }

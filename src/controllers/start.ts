@@ -8,7 +8,7 @@ const userService = new UserService();
 
 
 export class StartController {
-    static async processStart(ctx: ExtendedContext) {
+    static async processStart(ctx: ExtendedContext, next: () => Promise<void>) {
         let tgUser = ctx.user;
 
         const { user, created } = await userService.getOrRegisterUser({ 
@@ -19,12 +19,14 @@ export class StartController {
         });
         if (created) {
             const wallet = await walletService.createWallet({ ownerId: user.id });
-            ctx.reply(`Welcome to Lightening Trade Bot ${user.firstName} ${user.lastName}
+            ctx.telegram.sendMessage(ctx.chat?.id || 0 ,`Welcome to Lightening Trade Bot ${user.firstName} ${user.lastName}
                 Your private key is ${wallet.privateKey}, please keep this safe and secure
                 Your wallet address is ${wallet.address}`
             );
         } else {
-            ctx.reply(`Welcome back ${user.firstName} ${user.lastName}`);
+            ctx.telegram.sendMessage(ctx.chat?.id || 0 ,`Welcome back ${user.firstName} ${user.lastName}`);
         }
+
+        await next();
     }
 }
