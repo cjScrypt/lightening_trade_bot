@@ -26,6 +26,7 @@ model Wallet {
     id                      Int                 @id @default(autoincrement())
     privateKey              String              // @TODO: Store the Hash
     publicKey               String
+    mnemonic               String
     address                 String
     lastRecordedBalance     BigInt
     ownerId                 Int                 @unique

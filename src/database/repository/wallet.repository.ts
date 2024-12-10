@@ -9,6 +9,7 @@ export default class WalletRepository {
     async create(data: {
         privateKey: string,
         publicKey: string,
+        mnemonic: string, 
         address: string,
         ownerId: number
     }) {
@@ -17,6 +18,7 @@ export default class WalletRepository {
                 data: {
                     privateKey: data.privateKey,
                     publicKey: data.publicKey,
+                    mnemonic: data.mnemonic,
                     address: data.address,
                     ownerId: data.ownerId,
                     lastRecordedBalance: 0

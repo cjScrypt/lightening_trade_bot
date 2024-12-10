@@ -19,10 +19,11 @@ export class WalletService {
         const wallet = await this.repository.create({
             privateKey: keyPair.secretKey.toString(),
             publicKey: keyPair.publicKey.toString(),
+            mnemonic: mnemonicArray.join(" "),
             address: walletContract.address.toString(),
             ownerId: fields.ownerId
         });
 
-        return { address: wallet.address, privateKey: wallet.privateKey }
+        return { address: wallet.address, mnemonic: wallet.mnemonic }
     }
 }
