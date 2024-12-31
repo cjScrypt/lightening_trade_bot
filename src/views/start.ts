@@ -10,8 +10,9 @@ export class StartView {
         name: string,
         wallet: WalletData
     ): Promise<string> {
+        const explorer_url = "https://testnet.tonscan.org/address/" + wallet.address;
         return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: true, name, wallet
+            onboarding: true, name, wallet, explorer_url
         });
     }
 
@@ -19,8 +20,9 @@ export class StartView {
         name: string,
         wallet: WalletData
     ): Promise<string> {
+        const explorer_url = "https://testnet.tonscan.org/address/" + wallet.address;
         return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: false, name, wallet
+            onboarding: false, name, wallet, explorer_url
         });
     }
 }

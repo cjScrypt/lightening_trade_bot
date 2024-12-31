@@ -1,11 +1,9 @@
 <% if (onboarding) { %>
-    <b>Welcome to Lightening Trade Bot <%= name %> </b>
-<% } else { %>
-    <b>Welcome back to Lightening Trade Bot <%= name %> </b>
-<% } %>
+<b>Welcome to Lightening Trade Bot <%= name %> </b>
+Your mnemonic is <code><%= wallet.mnemonic %></code>, ensure to keep this safe and secure.<% } else { %>
+<b>Welcome back to Lightening Trade Bot <%= name %> </b><% } %>
 
-Your mnemonic is <code><b><i><%= wallet.mnemonic %></i></b></code>, ensure to keep this safe and secure.
-
-Your wallet address is `<code><b><i><%= wallet.address %></i></b></code>
+Your testnet wallet address: <code><%= wallet.address %></code> · <i>(Tap to Copy)</i>
+<a href="<%= explorer_url %>">Explorer</a>
 
 Balance: <%= wallet.lastRecordedBalance %>
