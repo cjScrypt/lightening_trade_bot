@@ -1,11 +1,11 @@
 <% if (onboarding) { %>
-    <b>Welcome to Lightening Trade Bot <%= name =%> </b>
+    <b>Welcome to Lightening Trade Bot <%= name %> </b>
 <% } else { %>
-    <b>Welcome back to Lightening Trade Bot <%= name =%> </b>
+    <b>Welcome back to Lightening Trade Bot <%= name %> </b>
 <% } %>
 
-<p>Your mnemonic is <%= wallet.mnemonic =%>, ensure to keep this safe and secure.</p>
+Your mnemonic is <code><b><i><%= wallet.mnemonic %></i></b></code>, ensure to keep this safe and secure.
 
-<p>Your wallet address is <%= wallet.address =%> </p>
+Your wallet address is `<code><b><i><%= wallet.address %></i></b></code>
 
-<p>Balance: <%= balance =%> </p>
+Balance: <%= wallet.lastRecordedBalance %>

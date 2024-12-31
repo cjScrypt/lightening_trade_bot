@@ -16,10 +16,11 @@ export class StartView {
     }
 
     static getReturningStartHtml(
+        name: string,
         wallet: WalletData
     ): Promise<string> {
         return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: false, wallet: wallet
+            onboarding: false, name, wallet
         });
     }
 }
