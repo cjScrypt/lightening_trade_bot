@@ -35,4 +35,12 @@ export default class WalletRepository {
         }
     }
 
+    async findOne(filter: any) {
+        const wallet = await prisma.wallet.findFirst({
+            where: filter
+        });
+
+        return wallet;
+    }
+
 }

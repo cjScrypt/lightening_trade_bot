@@ -24,6 +24,19 @@ export class WalletService {
             ownerId: fields.ownerId
         });
 
-        return { address: wallet.address, mnemonic: wallet.mnemonic }
+        return {
+            address: wallet.address,
+            mnemonic: wallet.mnemonic,
+            lastRecordedBalance: wallet.lastRecordedBalance
+        }
+    }
+
+    async getUserWallet(userId: number) {
+        const wallet = await this.repository.findOne({ ownerId: userId });
+        if (!wallet) {
+            throw new Error();
+        }
+
+        return wallet;
     }
 }

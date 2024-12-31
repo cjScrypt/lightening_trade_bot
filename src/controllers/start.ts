@@ -25,8 +25,10 @@ export class StartController {
                 await StartView.getOnboardingStartHtml(name, wallet)
             );
         } else {
-            const wallet = await walletService.getUserWallet(user.id);
-            await ctx.replyWithHTML(await StartView.getReturningStartHtml(wallet));
+            const { address, mnemonic, lastRecordedBalance } = await walletService.getUserWallet(user.id);
+            await ctx.replyWithHTML(
+                await StartView.getReturningStartHtml(name, { address, mnemonic, lastRecordedBalance })
+            );
         }
 
         await next();
