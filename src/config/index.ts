@@ -4,5 +4,7 @@ dotenv.config();
 
 export default {
     TG_TOKEN: process.env.TG_TOKEN || "",
-	WEBHOOK_DOMAIN: process.env.WEBHOOK_DOMAIN || ""
+	WEBHOOK_DOMAIN: process.env.WEBHOOK_DOMAIN || "",
+    TON_API_KEY: process.env.TON_API_KEY || "",
+    TON_API_ENDPOINT: process.env.TON_API_ENDPOINT || ""
 }
