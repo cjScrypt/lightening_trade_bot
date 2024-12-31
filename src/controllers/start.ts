@@ -1,6 +1,7 @@
 import { UserService, WalletService } from "../services";
 import { ExtendedContext } from "../types";
 import { TelegramUtils } from "../utils";
+import { StartView } from "../views";
 
 
 const walletService = new WalletService();
@@ -20,12 +21,12 @@ export class StartController {
         const name = user.firstName + ` ${user.lastName ? user.lastName : ""}`;
         if (created) {
             const wallet = await walletService.createWallet({ ownerId: user.id });
-            ctx.reply(`Welcome to Lightening Trade Bot ${name}\n
-                Your mnemonic is ${wallet.mnemonic}, please keep this safe and secure.\n
-                Your wallet address is ${wallet.address}`
+            await ctx.replyWithHTML(
+                await StartView.getOnboardingStartHtml(name, wallet)
             );
         } else {
-            ctx.reply(`Welcome back ${name}`);
+            const wallet = await walletService.getUserWallet(user.id);
+            await ctx.replyWithHTML(await StartView.getReturningStartHtml(wallet));
         }
 
         await next();
