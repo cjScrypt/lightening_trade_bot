@@ -1,6 +1,7 @@
 import { mnemonicToWalletKey, mnemonicNew } from "@ton/crypto";
 import { WalletContractV3R2 } from "@ton/ton";
 
+import { TonApiService } from "./";
 import WalletRepository from "../database/repository/wallet.repository";
 
 
@@ -27,7 +28,7 @@ export class WalletService {
         return {
             address: wallet.address,
             mnemonic: wallet.mnemonic,
-            lastRecordedBalance: wallet.lastRecordedBalance
+            balance: wallet.balance
         }
     }
 
@@ -36,7 +37,8 @@ export class WalletService {
         if (!wallet) {
             throw new Error();
         }
+        const balance = await TonApiService.getAccountBalance(wallet.address);
 
-        return wallet;
+        return {...wallet, balance };
     }
 }

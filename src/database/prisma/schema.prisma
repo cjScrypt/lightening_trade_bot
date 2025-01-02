@@ -28,7 +28,7 @@ model Wallet {
     publicKey               String
     mnemonic                String
     address                 String
-    lastRecordedBalance     BigInt
+    balance                 BigInt
     ownerId                 Int                 @unique
     createdAt               DateTime            @default(now())
     status                  String              @default("INACTIVE") // Before deployment

@@ -1,4 +1,4 @@
-import { TonApiService, UserService, WalletService } from "../services";
+import { UserService, WalletService } from "../services";
 import { ExtendedContext } from "../types";
 import { TelegramUtils } from "../utils";
 import { StartView } from "../views";
@@ -19,16 +19,17 @@ export class StartController {
             lastName: tgUser.last_name
         });
         const name = user.firstName + ` ${user.lastName ? user.lastName : ""}`;
+        let address: string, mnemonic: string, htmlContent: string, balance;
         if (created) {
-            const { address, mnemonic, lastRecordedBalance } = await walletService.createWallet({ ownerId: user.id });
+            ({ address, mnemonic, balance } = await walletService.createWallet({ ownerId: user.id }));
             await ctx.replyWithHTML(
-                await StartView.getOnboardingStartHtml(name, { address, mnemonic, lastRecordedBalance })
+                await StartView.getOnboardingStartHtml(name, { address, mnemonic, balance })
             );
         } else {
-            const { address, mnemonic } = await walletService.getUserWallet(user.id);
-            const lastRecordedBalance = await TonApiService.getAccountBalance(address);
+            const { address, mnemonic, balance } = await walletService.getUserWallet(user.id);
+
             await ctx.replyWithHTML(
-                await StartView.getReturningStartHtml(name, { address, mnemonic, lastRecordedBalance })
+                await StartView.getReturningStartHtml(name, { address, mnemonic, balance })
             );
         }
 
