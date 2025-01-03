@@ -30,7 +30,13 @@ export class StartController {
 
         ctx.reply(htmlContent, {
             parse_mode: "HTML",
-            reply_markup: StartView.getStartKeyboard().reply_markup
+            reply_markup: StartView.getStartKeyboard().reply_markup,
+            link_preview_options: {
+                is_disabled: true
+            },
+            reply_parameters: {
+                message_id: ctx.message?.message_id || 0
+            }
         });
         await next();
     }
