@@ -22,17 +22,16 @@ export class StartController {
         let address: string, mnemonic: string, htmlContent: string, balance;
         if (created) {
             ({ address, mnemonic, balance } = await walletService.createWallet({ ownerId: user.id }));
-            await ctx.replyWithHTML(
-                await StartView.getOnboardingStartHtml(name, { address, mnemonic, balance })
-            );
+            htmlContent = await StartView.getOnboardingStartHtml(name, { address, mnemonic, balance });
         } else {
             const { address, mnemonic, balance } = await walletService.getUserWallet(user.id);
-
-            await ctx.replyWithHTML(
-                await StartView.getReturningStartHtml(name, { address, mnemonic, balance })
-            );
+            htmlContent = await StartView.getReturningStartHtml(name, { address, mnemonic, balance });
         }
 
+        ctx.reply(htmlContent, {
+            parse_mode: "HTML",
+            reply_markup: StartView.getStartKeyboard().reply_markup
+        });
         await next();
     }
 }

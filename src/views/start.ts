@@ -3,6 +3,8 @@ import { resolve } from "path";
 import { Markup } from "telegraf";
 
 import { WalletData } from "../types/wallet";
+import { TelegramUtils } from "../utils";
+import { START } from "../constants";
 
 
 export class StartView {
@@ -24,5 +26,16 @@ export class StartView {
         return renderFile(resolve(__dirname, "start.ejs"), {
             onboarding: false, name, wallet, explorer_url
         });
+    }
+
+    static getStartKeyboard() {
+        return Markup.inlineKeyboard(
+            [
+                Markup.button.callback(
+                    START.BUTTON_TEXT.WALLET,
+                    START.BUTTON_ACTION.WALLET
+                )
+            ]
+        )
     }
 }

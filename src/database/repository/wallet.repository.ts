@@ -21,7 +21,7 @@ export default class WalletRepository {
                     mnemonic: data.mnemonic,
                     address: data.address,
                     ownerId: data.ownerId,
-                    lastRecordedBalance: 0
+                    balance: 0
                 }
             });
             return wallet;
