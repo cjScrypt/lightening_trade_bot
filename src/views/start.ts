@@ -34,8 +34,13 @@ export class StartView {
                 Markup.button.callback(
                     START.BUTTON_TEXT.WALLET,
                     START.BUTTON_ACTION.WALLET
+                ),
+                Markup.button.callback(
+                    START.BUTTON_TEXT.BALANCE,
+                    START.BUTTON_ACTION.BALANCE
                 )
-            ]
+            ],
+            { columns: 3 }
         )
     }
 }
