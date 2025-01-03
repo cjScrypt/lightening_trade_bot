@@ -9,7 +9,7 @@ const userService = new UserService();
 
 
 export class StartController {
-    static async processStart(ctx: ExtendedContext, next: () => Promise<void>) {
+    static async showStartMenu(ctx: ExtendedContext, next: () => Promise<void>) { // @todo Move user retrieval logic to middleware
         let tgUser = ctx.user;
 
         const { user, created } = await userService.getOrRegisterUser({ 

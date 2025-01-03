@@ -11,7 +11,7 @@ export const setupBot = () => {
 
     bot.use(UserMiddleware.addUserToContext);
 
-    bot.start(StartController.processStart);
+    bot.start(StartController.showStartMenu);
 
     return bot;
 }
