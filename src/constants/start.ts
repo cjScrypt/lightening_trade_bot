@@ -2,7 +2,7 @@ export const START = {
     SCENE: "start",
     BUTTON_ACTION: {
         BALANCE: "start-balance",
-        WALLET: "start-wallet"
+        WALLET: "wallet"
     },
     BUTTON_TEXT: {
         BALANCE: "💎 Balance",
