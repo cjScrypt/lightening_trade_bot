@@ -25,11 +25,7 @@ export class WalletService {
             ownerId: fields.ownerId
         });
 
-        return {
-            address: wallet.address,
-            mnemonic: wallet.mnemonic,
-            balance: wallet.balance
-        }
+        return wallet;
     }
 
     async getUserWallet(userId: number) {

@@ -1,5 +1,4 @@
-export type WalletData = {
-    address: string,
-    mnemonic: string,
-    balance: bigint
-}
+import { Wallet } from "@prisma/client"
+
+
+export type WalletData = Wallet;

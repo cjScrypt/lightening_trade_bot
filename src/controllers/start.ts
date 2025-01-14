@@ -1,5 +1,5 @@
 import { UserService, WalletService } from "../services";
-import { ExtendedContext } from "../types";
+import { ExtendedContext, WalletData } from "../types";
 import { TelegramUtils } from "../utils";
 import { StartView } from "../views";
 
@@ -19,13 +19,13 @@ export class StartController {
             lastName: tgUser.last_name
         });
         const name = user.firstName + ` ${user.lastName ? user.lastName : ""}`;
-        let address: string, mnemonic: string, htmlContent: string, balance;
+        let htmlContent: string;
         if (created) {
-            ({ address, mnemonic, balance } = await walletService.createWallet({ ownerId: user.id }));
-            htmlContent = await StartView.getOnboardingStartHtml(name, { address, mnemonic, balance });
+            const wallet = await walletService.createWallet({ ownerId: user.id });
+            htmlContent = await StartView.getOnboardingStartHtml(name, wallet);
         } else {
-            const { address, mnemonic, balance } = await walletService.getUserWallet(user.id);
-            htmlContent = await StartView.getReturningStartHtml(name, { address, mnemonic, balance });
+            const wallet = await walletService.getUserWallet(user.id);
+            htmlContent = await StartView.getReturningStartHtml(name, wallet);
         }
 
         ctx.reply(htmlContent, {
