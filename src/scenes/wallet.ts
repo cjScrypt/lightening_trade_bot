@@ -2,9 +2,12 @@ import { Scenes } from "telegraf";
 
 import { START, WALLET } from "../constants";
 import { StartController, WalletController } from "../controllers";
+import { UserMiddleware } from "../middleware";
 import { ExtendedContext } from "../types";
 
-export const walletScene = new Scenes.BaseScene<ExtendedContext>(START.BUTTON_ACTION.WALLET);
+export const walletScene = new Scenes.BaseScene<ExtendedContext>(WALLET.SCENE);
+
+walletScene.use(UserMiddleware.addUserToContext);
 
 walletScene.enter(WalletController.showWalletScene);
 

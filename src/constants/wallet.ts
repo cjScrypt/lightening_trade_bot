@@ -1,4 +1,5 @@
 export const WALLET = {
+    SCENE: "wallet",
     BUTTON_ACTION: {
         DEPOSIT: "start-wallet-deposit",
         TRANSFER: "start-wallet-transfer",
