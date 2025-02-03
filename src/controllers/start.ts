@@ -9,8 +9,8 @@ const userService = new UserService();
 
 
 export class StartController {
-    static async showStartMenu(ctx: ExtendedContext, next: () => Promise<void>) { // @todo Move user retrieval logic to middleware
-        let tgUser = ctx.user;
+    static async showStartMenu(ctx: ExtendedContext, next: () => Promise<void>) {
+        let tgUser = TelegramUtils.getUserFromContext(ctx);
 
         const { user, created } = await userService.getOrRegisterUser({ 
             telegramId: tgUser.id,

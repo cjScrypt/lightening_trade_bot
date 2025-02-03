@@ -1,13 +1,13 @@
 import { renderFile } from "ejs";
 import { resolve } from "path";
 import { Markup } from "telegraf";
+
 import { WALLET } from "../constants";
+import { WalletData } from "../types";
 
 export class WalletView {
-    static getWalletHtml() {
-        return renderFile(resolve(__dirname, "wallet.ejs"), {
-
-        });
+    static getWalletHtml(wallet: WalletData) {
+        return renderFile(resolve(__dirname, "wallet.ejs"), { wallet });
     }
 
     private static getFirstRowKeyboard() {
