@@ -1,5 +1,6 @@
 import { Context, Scenes } from "telegraf";
-import { User } from "telegraf/typings/core/types/typegram";
+
+import { User } from "@prisma/client";
 
 
 export interface ExtendedContext extends Context {

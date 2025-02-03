@@ -5,7 +5,6 @@ import { TelegramUtils } from "../utils";
 
 const userService = new UserService();
 
-
 export class UserMiddleware {
 
     static async addUserToContext(ctx: ExtendedContext, next: () => Promise<void>) {
@@ -14,10 +13,7 @@ export class UserMiddleware {
             return;
         }
         const user = TelegramUtils.getUserFromContext(ctx);
-        if (!user) {
-            return;
-        }
-        ctx.user = user;
+        ctx.user = await userService.findUserByTgId(user.id);
         await next();
     }
 }
