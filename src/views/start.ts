@@ -20,11 +20,9 @@ export class StartView {
 
     static getReturningStartHtml(
         name: string,
-        wallet: WalletData
     ): Promise<string> {
-        const explorer_url = "https://testnet.tonscan.org/address/" + wallet.address;
         return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: false, name, wallet, explorer_url
+            name
         });
     }
 

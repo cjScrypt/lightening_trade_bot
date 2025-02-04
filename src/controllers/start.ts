@@ -25,7 +25,7 @@ export class StartController {
             htmlContent = await StartView.getOnboardingStartHtml(name, wallet);
         } else {
             const wallet = await walletService.getUserWallet(user.id);
-            htmlContent = await StartView.getReturningStartHtml(name, wallet);
+            htmlContent = await StartView.getReturningStartHtml(name);
         }
 
         ctx.reply(htmlContent, {
