@@ -15,9 +15,10 @@ export class UserMiddleware {
 
         const tgUser = TelegramUtils.getUserFromContext(ctx);
         const user = await userService.findUserByTgId(tgUser.id);
-        if (!user) {
-            // @todo Do something, maybe force user to use /start again
+        if (user) {
+            ctx.user = user;
         }
+        // @todo Do something if user is not found, maybe force user to use /start again
 
         await next();
     }
