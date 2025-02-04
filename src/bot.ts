@@ -3,7 +3,7 @@ import { session, Telegraf } from "telegraf";
 import APP_SETTINGS from "./config";
 import { START } from "./constants";
 import { CommonController } from "./controllers";
-import { UserMiddleware } from "./middleware";
+import { BotErrorHandler, UserMiddleware } from "./middleware";
 import { ExtendedContext } from "./types";
 import { mainStage } from "./scenes";
 
@@ -17,6 +17,8 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
 
     bot.start(CommonController.enterScene(START.SCENE));
+
+    bot.catch(BotErrorHandler);
 
     return bot;
 }
