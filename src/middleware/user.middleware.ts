@@ -12,13 +12,13 @@ export class UserMiddleware {
         if (!isPrivateChat) { // @todo Response with error message
             return;
         }
-        if (ctx.text === "/start") { // skip if command is /start
-            return await next();
+
+        const tgUser = TelegramUtils.getUserFromContext(ctx);
+        const user = await userService.findUserByTgId(tgUser.id);
+        if (!user) {
+            // @todo Do something, maybe force user to use /start again
         }
 
-        const user = TelegramUtils.getUserFromContext(ctx);
-
-        ctx.user = await userService.findUserByTgId(user.id);
         await next();
     }
 }
