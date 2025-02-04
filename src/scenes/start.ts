@@ -7,6 +7,8 @@ import { CommonController, StartController } from "../controllers";
 
 export const startScene = new Scenes.BaseScene<ExtendedContext>(START.SCENE);
 
+startScene.use(UserMiddleware.addUserToContext);
+
 startScene.enter(StartController.showStartMenu);
 
 startScene.action(
