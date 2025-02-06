@@ -10,5 +10,7 @@ export const walletMenu = (bot: Telegraf<ExtendedContext>) => {
 
     bot.action(WALLET.ACTION.TRANSFER, WalletController.showTransferScene);
 
+    bot.action(WALLET.ACTION.REFRESH, WalletController.showWalletScene);
+
     bot.action(WALLET.ACTION.BACK, StartController.backToStartMenu);
 }

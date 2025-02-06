@@ -3,9 +3,9 @@ export const WALLET = {
     ACTION: {
         DEPOSIT: "start-wallet-deposit",
         TRANSFER: "start-wallet-transfer",
-        BACK: "start-wallet-back",
         REVEAL_KEY: "start-wallet-reveal_key",
-        REFRESH: "start-wallet-refresh"
+        REFRESH: "start-wallet-refresh",
+        BACK: "start-wallet-back"
     },
     BUTTON_TEXT: {
         DEPOSIT: "📥 Deposit",
