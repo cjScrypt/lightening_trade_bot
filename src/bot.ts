@@ -1,7 +1,7 @@
 import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
-import { startMenu } from "./menus";
+import { startMenu, walletMenu } from "./menus";
 import { BotErrorHandler, UserMiddleware } from "./middleware";
 import { ExtendedContext } from "./types";
 import { mainStage } from "./scenes";
@@ -16,6 +16,7 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
 
     startMenu(bot);
+    walletMenu(bot);
 
     bot.catch(BotErrorHandler);
 
