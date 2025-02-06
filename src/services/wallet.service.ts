@@ -33,8 +33,11 @@ export class WalletService {
         if (!wallet) {
             throw new Error();
         }
-        const balance = await TonApiService.getAccountBalance(wallet.address);
 
-        return {...wallet, balance };
+        return wallet;
+    }
+
+    async getWalletBalance(address: string) {
+        return await TonApiService.getAccountBalance(address);
     }
 }
