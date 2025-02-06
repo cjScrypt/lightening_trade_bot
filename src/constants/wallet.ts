@@ -13,5 +13,8 @@ export const WALLET = {
         BACK: "⬅ Back",
         REVEAL_KEY: "🔑 Reveal mnemonics",
         REFRESH: "🔄 Refresh"
+    },
+    VERSION: {
+        V3R2: "v3r2",
     }
 }

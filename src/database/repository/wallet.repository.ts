@@ -1,29 +1,15 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 import prisma from "../prisma/client";
+import { CreateWalletInput } from "../../types";
 
 
 export default class WalletRepository {
     constructor() {}
 
-    async create(data: {
-        privateKey: string,
-        publicKey: string,
-        mnemonic: string, 
-        address: string,
-        ownerId: number
-    }) {
+    async create(data: CreateWalletInput) {
         try {
-            const wallet = await prisma.wallet.create({
-                data: {
-                    privateKey: data.privateKey,
-                    publicKey: data.publicKey,
-                    mnemonic: data.mnemonic,
-                    address: data.address,
-                    ownerId: data.ownerId,
-                    balance: 0
-                }
-            });
+            const wallet = await prisma.wallet.create({ data });
             return wallet;
         } catch (error) {
             if (error instanceof PrismaClientKnownRequestError) {
