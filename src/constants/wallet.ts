@@ -1,6 +1,6 @@
 export const WALLET = {
     SCENE: "wallet",
-    BUTTON_ACTION: {
+    ACTION: {
         DEPOSIT: "start-wallet-deposit",
         TRANSFER: "start-wallet-transfer",
         BACK: "start-wallet-back",

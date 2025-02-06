@@ -31,11 +31,11 @@ export class StartView {
             [
                 Markup.button.callback(
                     START.BUTTON_TEXT.WALLET,
-                    START.BUTTON_ACTION.WALLET
+                    START.ACTION.WALLET
                 ),
                 Markup.button.callback(
                     START.BUTTON_TEXT.BALANCE,
-                    START.BUTTON_ACTION.BALANCE
+                    START.ACTION.BALANCE
                 )
             ],
             { columns: 3 }

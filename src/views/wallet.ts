@@ -14,7 +14,7 @@ export class WalletView {
         return [
             Markup.button.callback(
                 WALLET.BUTTON_TEXT.REVEAL_KEY,
-                WALLET.BUTTON_ACTION.REVEAL_KEY
+                WALLET.ACTION.REVEAL_KEY
             )
         ]
     }
@@ -22,10 +22,10 @@ export class WalletView {
     private static getSecondRowKeyboard() {
         return [
             Markup.button.callback(
-                WALLET.BUTTON_TEXT.DEPOSIT, WALLET.BUTTON_ACTION.DEPOSIT
+                WALLET.BUTTON_TEXT.DEPOSIT, WALLET.ACTION.DEPOSIT
             ),
             Markup.button.callback(
-                WALLET.BUTTON_TEXT.TRANSFER, WALLET.BUTTON_ACTION.TRANSFER
+                WALLET.BUTTON_TEXT.TRANSFER, WALLET.ACTION.TRANSFER
             )
         ]
     }
@@ -33,10 +33,10 @@ export class WalletView {
     private static getThirdRowKeyboard() {
         return [
             Markup.button.callback(
-                WALLET.BUTTON_TEXT.REFRESH, WALLET.BUTTON_ACTION.REFRESH
+                WALLET.BUTTON_TEXT.REFRESH, WALLET.ACTION.REFRESH
             ),
             Markup.button.callback(
-                WALLET.BUTTON_TEXT.BACK, WALLET.BUTTON_ACTION.BACK
+                WALLET.BUTTON_TEXT.BACK, WALLET.ACTION.BACK
             )
         ]
     }
