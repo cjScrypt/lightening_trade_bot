@@ -6,5 +6,5 @@ import { walletScene } from "./wallet";
 
 
 export const mainStage = new Scenes.Stage<ExtendedContext>(
-    [ startScene, walletScene ]
+    // [ startScene, walletScene ]
 );

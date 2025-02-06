@@ -12,11 +12,16 @@ walletScene.use(UserMiddleware.addUserToContext);
 walletScene.enter(WalletController.showWalletScene);
 
 walletScene.action(
-    WALLET.BUTTON_ACTION.DEPOSIT, WalletController.showDepositScene
+    WALLET.ACTION.DEPOSIT, WalletController.showDepositScene
 );
 
 walletScene.action(
-    WALLET.BUTTON_ACTION.TRANSFER, WalletController.showTransferScene
+    WALLET.ACTION.TRANSFER, WalletController.showTransferScene
 );
 
-walletScene.action(WALLET.BUTTON_ACTION.BACK, StartController.showStartMenu);
+walletScene.action(
+    WALLET.ACTION.BACK,
+    StartController.backToStartMenu,
+    Scenes.Stage.leave<ExtendedContext>()
+);
+

@@ -25,7 +25,7 @@ export class StartController {
             htmlContent = await StartView.getOnboardingStartHtml(name, wallet);
         } else {
             const wallet = await walletService.getUserWallet(user.id);
-            htmlContent = await StartView.getReturningStartHtml(name, wallet);
+            htmlContent = await StartView.getReturningStartHtml(name);
         }
 
         ctx.reply(htmlContent, {
@@ -38,6 +38,22 @@ export class StartController {
                 message_id: ctx.message?.message_id || 0
             }
         });
+        await next();
+    }
+
+    static async backToStartMenu(ctx: ExtendedContext, next: () => Promise<void>) {
+        const user = ctx.user;
+        const name = [ user.firstName, user.lastName ].filter(Boolean).join(" ");
+
+        const htmlContent = await StartView.getReturningStartHtml(name);
+        ctx.editMessageText( htmlContent, {
+            parse_mode: "HTML",
+            reply_markup: StartView.getStartKeyboard().reply_markup,
+            link_preview_options: {
+                is_disabled: true
+            }
+        });
+        ctx.scene.leave();
         await next();
     }
 }

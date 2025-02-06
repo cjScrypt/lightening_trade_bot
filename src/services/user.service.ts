@@ -22,7 +22,7 @@ export class UserService {
     async findUserByTgId(userId: number) {
         const user = await this.repository.findUser({ telegramId: userId });
         if (!user) {
-            throw new Error("User not found");
+            return null;
         }
 
         return user;

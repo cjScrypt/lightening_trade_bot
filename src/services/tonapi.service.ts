@@ -3,7 +3,8 @@ import APP_SETTINGS from "../config";
 
 const client = new TonClient({
     apiKey: APP_SETTINGS.TON_API_KEY,
-    endpoint: APP_SETTINGS.TON_API_ENDPOINT
+    endpoint: APP_SETTINGS.TON_API_ENDPOINT,
+    timeout: 15000
 });
 
 

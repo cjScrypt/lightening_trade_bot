@@ -13,18 +13,16 @@ export class StartView {
         wallet: WalletData
     ): Promise<string> {
         const explorer_url = "https://testnet.tonscan.org/address/" + wallet.address;
-        return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: true, name, wallet, explorer_url
+        return renderFile(resolve(__dirname, "onboarding.ejs"), {
+            name, wallet, explorer_url
         });
     }
 
     static getReturningStartHtml(
         name: string,
-        wallet: WalletData
     ): Promise<string> {
-        const explorer_url = "https://testnet.tonscan.org/address/" + wallet.address;
         return renderFile(resolve(__dirname, "start.ejs"), {
-            onboarding: false, name, wallet, explorer_url
+            name
         });
     }
 
@@ -33,11 +31,11 @@ export class StartView {
             [
                 Markup.button.callback(
                     START.BUTTON_TEXT.WALLET,
-                    START.BUTTON_ACTION.WALLET
+                    START.ACTION.WALLET
                 ),
                 Markup.button.callback(
                     START.BUTTON_TEXT.BALANCE,
-                    START.BUTTON_ACTION.BALANCE
+                    START.ACTION.BALANCE
                 )
             ],
             { columns: 3 }

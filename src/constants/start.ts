@@ -1,7 +1,7 @@
 export const START = {
-    SCENE: "start",
-    BUTTON_ACTION: {
-        BALANCE: "start-balance",
+    COMMAND: "start",
+    ACTION: {
+        BALANCE: "balance",
         WALLET: "wallet"
     },
     BUTTON_TEXT: {

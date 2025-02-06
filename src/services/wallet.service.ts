@@ -3,6 +3,7 @@ import { WalletContractV3R2 } from "@ton/ton";
 
 import { TonApiService } from "./";
 import WalletRepository from "../database/repository/wallet.repository";
+import { WALLET } from "../constants";
 
 
 export class WalletService {
@@ -22,6 +23,7 @@ export class WalletService {
             publicKey: keyPair.publicKey.toString(),
             mnemonic: mnemonicArray.join(" "),
             address: walletContract.address.toString(),
+            version: WALLET.VERSION.V3R2,
             ownerId: fields.ownerId
         });
 
@@ -33,8 +35,11 @@ export class WalletService {
         if (!wallet) {
             throw new Error();
         }
-        const balance = await TonApiService.getAccountBalance(wallet.address);
 
-        return {...wallet, balance };
+        return wallet;
+    }
+
+    async getWalletBalance(address: string) {
+        return await TonApiService.getAccountBalance(address);
     }
 }
