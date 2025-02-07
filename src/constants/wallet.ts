@@ -18,3 +18,13 @@ export const WALLET = {
         V3R2: "v3r2",
     }
 }
+
+export const DEPOSIT = {
+    ACTION: {
+        CLOSE: "wallet-deposit-back"
+    },
+    BUTTON_TEXT: {
+        OPEN_WALLET: "Open Ton Wallet 💼",
+        CLOSE: "Close 🚫",
+    }
+}
