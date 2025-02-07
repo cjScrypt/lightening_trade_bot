@@ -1,7 +1,9 @@
 import { UserService, WalletService } from "../services";
 import { ExtendedContext } from "../types";
-import { TelegramUtils } from "../utils";
+import { TelegramUtils, urlToQRCodeBuffer } from "../utils";
+import { UrlUtil } from "../utils";
 import { WalletView }from "../views";
+import { DepositView } from "../views/deposit";
 
 
 const walletService = new WalletService();
@@ -18,8 +20,23 @@ export class WalletController {
         await next();
     }
 
-    static showDepositScene(ctx: ExtendedContext, next: () => Promise<void>) {
+    static async showDepositScene(ctx: ExtendedContext, next: () => Promise<void>) {
+        const user = ctx.user;
+        const wallet = await walletService.getUserWallet(user.id);
+        const { deeplink, image } = await UrlUtil.generateDepositDeeplink(wallet.address);
 
+        ctx.editMessageMedia(
+            {
+                type: "photo",
+                media: image.toLocaleString(),
+                caption: await DepositView.getDepositHtml(wallet.address),
+                parse_mode: "HTML"
+            }, {
+                reply_markup: DepositView.getDepositKeyboard(
+                    wallet.address, deeplink
+                ).reply_markup
+            }
+        );
     }
 
     static showTransferScene(ctx: ExtendedContext, next: () => Promise<void>) {
