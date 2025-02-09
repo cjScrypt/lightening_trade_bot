@@ -28,7 +28,7 @@ export class WalletController {
         ctx.editMessageMedia(
             {
                 type: "photo",
-                media: image.toLocaleString(),
+                media: { source: image },
                 caption: await DepositView.getDepositHtml(wallet.address),
                 parse_mode: "HTML"
             }, {
