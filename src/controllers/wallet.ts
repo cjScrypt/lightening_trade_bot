@@ -1,6 +1,5 @@
 import { UserService, WalletService } from "../services";
 import { ExtendedContext } from "../types";
-import { TelegramUtils, urlToQRCodeBuffer } from "../utils";
 import { UrlUtil } from "../utils";
 import { WalletView }from "../views";
 import { DepositView } from "../views/deposit";
@@ -25,13 +24,12 @@ export class WalletController {
         const wallet = await walletService.getUserWallet(user.id);
         const { deeplink, image } = await UrlUtil.generateDepositDeeplink(wallet.address);
 
-        ctx.editMessageMedia(
+        ctx.sendPhoto(
             {
-                type: "photo",
-                media: { source: image },
-                caption: await DepositView.getDepositHtml(wallet.address),
-                parse_mode: "HTML"
+                source: image,
             }, {
+                caption: await DepositView.getDepositHtml(wallet.address),
+                parse_mode: "HTML",
                 reply_markup: DepositView.getDepositKeyboard(
                     wallet.address, deeplink
                 ).reply_markup
