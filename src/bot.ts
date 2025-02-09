@@ -1,3 +1,4 @@
+import { Agent } from "https";
 import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
@@ -8,7 +9,13 @@ import { mainStage } from "./scenes";
 
 
 export const setupBot = () => {
-    const bot = new Telegraf<ExtendedContext>(APP_SETTINGS.TG_TOKEN);
+    const agent = new Agent({
+        keepAlive: true,
+        timeout: 20000, // Timeout in milliseconds
+    });
+    const bot = new Telegraf<ExtendedContext>(APP_SETTINGS.TG_TOKEN, {
+        telegram: { agent }
+    });
 
     bot.use(session());
     bot.use(mainStage.middleware()); // @note This doesn't work for now
