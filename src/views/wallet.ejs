@@ -1,3 +1,6 @@
 💵 Balance: <%= wallet.balance %> TON
 🏷️ Version: <%= wallet.version %>
 <%= wallet.address %>
+<% if (addMnemonic) { %>
+    <a href="#"><code><%= wallet.mnemonic %></code></a>
+<% } %>

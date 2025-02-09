@@ -6,8 +6,8 @@ import { WALLET } from "../constants";
 import { WalletData } from "../types";
 
 export class WalletView {
-    static getWalletHtml(wallet: WalletData) {
-        return renderFile(resolve(__dirname, "wallet.ejs"), { wallet });
+    static getWalletHtml(wallet: WalletData, addMnemonic=false) {
+        return renderFile(resolve(__dirname, "wallet.ejs"), { wallet, addMnemonic });
     }
 
     private static getFirstRowKeyboard() {

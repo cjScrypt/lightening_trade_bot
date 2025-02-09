@@ -19,11 +19,23 @@ export class WalletController {
         await next();
     }
 
+    static async showMnemonic(ctx: ExtendedContext, next: () => Promise<void>) {
+        const wallet = await walletService.getUserWallet(ctx.user.id);
+        await ctx.editMessageText(
+            await WalletView.getWalletHtml(wallet, true),
+            {
+                parse_mode: "HTML",
+                reply_markup: WalletView.getWalletKeyboard().reply_markup
+            }
+        );
+    }
+
     static async showDepositScene(ctx: ExtendedContext, next: () => Promise<void>) {
         const user = ctx.user;
         const wallet = await walletService.getUserWallet(user.id);
         const { deeplink, image } = await UrlUtil.generateDepositDeeplink(wallet.address);
 
+        ctx.answerCbQuery();
         ctx.sendPhoto(
             {
                 source: image,

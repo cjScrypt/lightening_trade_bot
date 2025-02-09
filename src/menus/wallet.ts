@@ -6,6 +6,8 @@ import { StartController, WalletController } from "../controllers";
 
 
 export const walletMenu = (bot: Telegraf<ExtendedContext>) => {
+    bot.action(WALLET.ACTION.REVEAL_KEY, WalletController.showMnemonic);
+
     bot.action(WALLET.ACTION.DEPOSIT, WalletController.showDepositScene);
 
     bot.action(WALLET.ACTION.TRANSFER, WalletController.showTransferScene);
