@@ -7,4 +7,9 @@ export class CommonController {
             await ctx.scene.enter(scene);
         };  
     }
+
+    static async deleteMessage(ctx: ExtendedContext, next: () => Promise<void>) {
+        await ctx.deleteMessage();
+        await next();
+    }
 }
