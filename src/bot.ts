@@ -2,7 +2,7 @@ import { Agent } from "https";
 import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
-import { startMenu, walletMenu } from "./menus";
+import { depositMenu, startMenu, walletMenu } from "./menus";
 import { BotErrorHandler, UserMiddleware } from "./middleware";
 import { ExtendedContext } from "./types";
 import { mainStage } from "./scenes";
@@ -23,7 +23,9 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
 
     startMenu(bot);
+
     walletMenu(bot);
+    depositMenu(bot);
 
     bot.catch(BotErrorHandler);
 
