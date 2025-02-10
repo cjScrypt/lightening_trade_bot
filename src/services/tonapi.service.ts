@@ -1,16 +1,20 @@
 import { Address, TonClient, TonClient4 } from "@ton/ton";
 import APP_SETTINGS from "../config";
 
-const client = new TonClient({
-    apiKey: APP_SETTINGS.TON_API_KEY,
-    endpoint: APP_SETTINGS.TON_API_ENDPOINT,
-    timeout: 15000
-});
-
 
 export class TonApiService {
-    static async getAccountBalance(address: string): Promise<bigint> {
-        const balance = await client.getBalance(Address.parse(address));
+    client: TonClient;
+
+    constructor() {
+        this.client = new TonClient({
+            apiKey: APP_SETTINGS.TON_API_KEY,
+            endpoint: APP_SETTINGS.TON_API_ENDPOINT,
+            timeout: 15000
+        });
+    }
+
+    async getAccountBalance(address: string): Promise<bigint> {
+        const balance = await this.client.getBalance(Address.parse(address));
 
         return balance;
     }
