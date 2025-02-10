@@ -1,4 +1,4 @@
-import { Address, TonClient, TonClient4 } from "@ton/ton";
+import { Address, internal, SenderArguments, TonClient, WalletContractV3R2 } from "@ton/ton";
 import APP_SETTINGS from "../config";
 
 
@@ -17,5 +17,21 @@ export class TonApiService {
         const balance = await this.client.getBalance(Address.parse(address));
 
         return balance;
+    }
+
+    async sendTransaction(
+        txParams: SenderArguments,
+        walletArgs: { publicKey: string, privateKey: string }
+    ) {
+        const wallet = WalletContractV3R2.create({
+            workchain: 0, publicKey: Buffer.from(walletArgs.publicKey)
+        });
+        const walletContract = this.client.open(wallet);
+
+        walletContract.sendTransfer({
+            seqno: await walletContract.getSeqno(),
+            secretKey: Buffer.from(walletArgs.privateKey),
+            messages: [internal(txParams)]
+        });
     }
 }
