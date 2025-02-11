@@ -1,36 +1,39 @@
 import { DEX, pTON } from "@ston-fi/sdk";
-import { RouterV1 } from "@ston-fi/sdk/dist/contracts/dex/v1/RouterV1";
-import { PtonV1 } from "@ston-fi/sdk/dist/contracts/pTON/v1/PtonV1";
-import { OpenedContract, toNano, TonClient } from "@ton/ton";
+import { RouterV2_1 } from "@ston-fi/sdk/dist/contracts/dex/v2_1/router/RouterV2_1";
+import { PtonV2_1 } from "@ston-fi/sdk/dist/contracts/pTON/v2_1/PtonV2_1";
+import { OpenedContract, toNano } from "@ton/ton";
 
 import { TonApiService } from "./";
 import APP_SETTINGS from "../config";
 
 
 export class StonFiService {
-    router: OpenedContract<RouterV1>;
-    proxyTon: PtonV1;
+    connection: TonApiService;
+    router: OpenedContract<RouterV2_1>;
+    proxyTon: PtonV2_1;
 
-    constructor(client: TonClient) {
-        this.router = client.open(new DEX.v1.Router(APP_SETTINGS.ROUTER_ADDRESS));
-        this.proxyTon = new pTON.v1();
+    constructor() {
+        this.connection = new TonApiService();
+        this.router = this.connection.openContract(DEX.v2_1.Router.create(APP_SETTINGS.ROUTER_ADDRESS));
+        this.proxyTon = pTON.v2_1.create(APP_SETTINGS.PROXY_TON_ADDRESS)
     }
 
     async buyJetton(data: {
         privateKey: string,
         publicKey: string,
         amount: bigint,
+        recipientAddress: string,
+        jettonContractAddress: string
     }) {
-        const tonService = new TonApiService();
         const txParams = await this.router.getSwapTonToJettonTxParams({
-            userWalletAddress: "",
-            proxyTon,
+            userWalletAddress: data.recipientAddress,
+            proxyTon: this.proxyTon,
             offerAmount: toNano(data.amount),
-            askJettonAddress: jettonContractAddress,
-            minAskAmount: "",
+            askJettonAddress: data.jettonContractAddress,
+            minAskAmount: "1",
             queryId: 0
         });
-        await  tonService.sendTransaction(
+        await this.connection.sendTransaction(
             txParams,
             { privateKey: data.privateKey, publicKey: data.publicKey }
         );

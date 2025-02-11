@@ -42,6 +42,6 @@ export class WalletService {
     async getWalletBalance(address: string) {
         // @todo Improve: Implement hybrid approach,
         // Cache balance and fetch new data in real time
-        return await TonApiService.getAccountBalance(address);
+        return await (new TonApiService()).getAccountBalance(address);
     }
 }

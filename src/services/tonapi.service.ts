@@ -1,4 +1,5 @@
-import { Address, internal, SenderArguments, TonClient, WalletContractV3R2 } from "@ton/ton";
+import { internal, Address, Contract, SenderArguments, TonClient, WalletContractV3R2 } from "@ton/ton";
+
 import APP_SETTINGS from "../config";
 
 
@@ -17,6 +18,10 @@ export class TonApiService {
         const balance = await this.client.getBalance(Address.parse(address));
 
         return balance;
+    }
+
+    openContract<X extends Contract>(contract: X) {
+        return this.client.open(contract);
     }
 
     async sendTransaction(
