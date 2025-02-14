@@ -1,3 +1,3 @@
 export interface RedisSession {
-    buyPromptMsgIds: string[]
+    pendingBuyPrompt: string[]
 }
