@@ -16,4 +16,8 @@ export class TelegramUtils {
     static isPrivateChat(chat: Chat | undefined): boolean {
         return chat?.type == "private";
     }
+
+    static cacheBuyMsgID(ctx: ExtendedContext, messageID: number) {
+
+    }
 }

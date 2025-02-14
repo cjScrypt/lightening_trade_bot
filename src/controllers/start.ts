@@ -56,4 +56,11 @@ export class StartController {
         ctx.scene.leave();
         await next();
     }
+
+    static async showBuyInputPrompt(ctx: ExtendedContext, next: () => Promise<void>) {
+        const content = "Enter a token address to buy";
+
+        const message = await ctx.sendMessage(content);
+        TelegramUtils.cacheBuyMsgID(ctx, message.message_id);
+    }
 }

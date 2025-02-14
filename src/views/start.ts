@@ -27,18 +27,22 @@ export class StartView {
     }
 
     static getStartKeyboard() {
-        return Markup.inlineKeyboard(
-            [
-                Markup.button.callback(
-                    START.BUTTON_TEXT.WALLET,
-                    START.ACTION.WALLET
-                ),
-                Markup.button.callback(
-                    START.BUTTON_TEXT.BALANCE,
-                    START.ACTION.BALANCE
-                )
-            ],
-            { columns: 3 }
-        )
+        const firstRow = [
+            Markup.button.callback(
+                START.BUTTON_TEXT.WALLET,
+                START.ACTION.WALLET
+            ),
+            Markup.button.callback(
+                START.BUTTON_TEXT.BALANCE,
+                START.ACTION.BALANCE
+            )
+        ]
+        const secondRow = [
+            Markup.button.callback(
+                START.BUTTON_TEXT.BUY,
+                START.ACTION.BUY
+            )
+        ]
+        return Markup.inlineKeyboard([ firstRow, secondRow ]);
     }
 }

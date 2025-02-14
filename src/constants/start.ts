@@ -2,10 +2,12 @@ export const START = {
     COMMAND: "start",
     ACTION: {
         BALANCE: "balance",
-        WALLET: "wallet"
+        WALLET: "wallet",
+        BUY: "buy"
     },
     BUTTON_TEXT: {
         BALANCE: "💎 Balance",
-        WALLET: "💳 Wallet"        
+        WALLET: "💳 Wallet",
+        BUY: "Buy"
     },
 }

@@ -10,4 +10,6 @@ export const startMenu = (bot: Telegraf<ExtendedContext>) => {
     bot.start(StartController.showStartMenu);
 
     bot.action(START.ACTION.WALLET, WalletController.showWalletScene);
+
+    bot.action(START.ACTION.BUY, StartController.showBuyInputPrompt);
 }
