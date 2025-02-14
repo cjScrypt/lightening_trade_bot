@@ -3,7 +3,7 @@ import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
 import { depositMenu, startMenu, walletMenu } from "./menus";
-import { BotErrorHandler, UserMiddleware } from "./middleware";
+import { BotErrorHandler, GlobalMiddleware, UserMiddleware } from "./middleware";
 import { ExtendedContext } from "./types";
 import { mainStage } from "./scenes";
 
@@ -21,6 +21,7 @@ export const setupBot = () => {
     bot.use(mainStage.middleware()); // @note This doesn't work for now
 
     bot.use(UserMiddleware.addUserToContext);
+    bot.use(GlobalMiddleware.initializeRedisSession);
 
     startMenu(bot);
 
