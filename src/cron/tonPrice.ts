@@ -23,7 +23,7 @@ const updateTonPrice = async () => {
             'Content-Type': 'application/json'
         }
     }
-    const response = await fetch("https://tonapi.io/v2/rates?tokens=TON", options);
+    const response = await fetch("https://tonapi.io/v2/rates?tokens=TON&currencies=usd", options);
     const data = await response.json();
     const price = data.rates.TON.prices.USD;
     const key = 'TON_PRICE';
