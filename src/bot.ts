@@ -2,6 +2,7 @@ import { Agent } from "https";
 import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
+import { runTONPriceUpdateSchedule } from "./cron";
 import { depositMenu, startMenu, walletMenu } from "./menus";
 import { BotErrorHandler, GlobalMiddleware, UserMiddleware } from "./middleware";
 import { ExtendedContext } from "./types";
@@ -29,6 +30,9 @@ export const setupBot = () => {
     depositMenu(bot);
 
     bot.catch(BotErrorHandler);
+
+    // Run CRON Jobs
+    runTONPriceUpdateSchedule();
 
     return bot;
 }
