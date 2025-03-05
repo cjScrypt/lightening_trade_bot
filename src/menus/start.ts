@@ -4,6 +4,7 @@ import { StartController, WalletController } from "../controllers";
 import { ExtendedContext } from "../types";
 import { StartMiddleware } from "../middleware";
 import { START } from "../constants";
+import { CommonMiddleware } from "../middleware/common.middleware";
 
 
 export const startMenu = (bot: Telegraf<ExtendedContext>) => {
@@ -13,7 +14,8 @@ export const startMenu = (bot: Telegraf<ExtendedContext>) => {
 
     bot.action(
         START.ACTION.BUY,
-        StartMiddleware.addpendingBuyPromptToContext,
+        // StartMiddleware.addpendingBuyPromptToContext,
+        CommonMiddleware.saveCurrentAction(START.ACTION.BUY),
         StartController.showBuyInputPrompt
     );
 }

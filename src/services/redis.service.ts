@@ -25,4 +25,14 @@ export class RedisService {
 
         return JSON.parse(value);
     }
+
+    async getCurrentAction(chatId: number) {
+        const key = `CURRENT_ACTION_${chatId}`;
+        return this.client.get(key);
+    }
+
+    async setCurrentACtion(action: string, chatId: number) {
+        const key = `CURRENT_ACTION_${chatId}`;
+        this.client.set(key, action);
+    }
 }
