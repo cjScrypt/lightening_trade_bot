@@ -1,16 +1,20 @@
 import { mnemonicToWalletKey, mnemonicNew } from "@ton/crypto";
-import { WalletContractV3R2 } from "@ton/ton";
+import { Address, WalletContractV3R2 } from "@ton/ton";
 
-import { TonApiService } from "./";
+import { RedisService, TonApiService } from "./";
 import WalletRepository from "../database/repository/wallet.repository";
 import { WALLET } from "../constants";
 
 
 export class WalletService {
     repository: WalletRepository;
+    redisService: RedisService;
+    tonApiService: TonApiService;
 
     constructor() {
         this.repository = new WalletRepository();
+        this.redisService = new RedisService();
+        this.tonApiService = new TonApiService();
     }
 
     async createWallet(fields: { ownerId: number }) {
@@ -35,13 +39,25 @@ export class WalletService {
         if (!wallet) {
             throw new Error();
         }
+        const tonBalance = await this.getTonBalance(wallet.address);
 
-        return wallet;
+        return { ...wallet, balance: tonBalance };
     }
 
-    async getWalletBalance(address: string) {
-        // @todo Improve: Implement hybrid approach,
-        // Cache balance and fetch new data in real time
-        return await (new TonApiService()).getAccountBalance(address);
+    async getTonBalance(address: string) {
+        let tonBalance = 0;
+        const key = `${address}_tonbalance`;
+        const data = await this.redisService.getValue(key);
+        if (data) {
+            return Number(data);
+        }
+
+        const balance = await this.tonApiService.getAccountBalance(address);
+        if (balance) {
+            const tonBalance = balance / BigInt(10 ** 9);
+            await this.redisService.setValue(key, String(tonBalance), 60);
+        }
+
+        return tonBalance;
     }
 }
