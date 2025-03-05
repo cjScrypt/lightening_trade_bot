@@ -2,6 +2,7 @@ import { Agent } from "https";
 import { session, Telegraf } from "telegraf";
 
 import APP_SETTINGS from "./config";
+import { GlobalController } from "./controllers";
 import { runTONPriceUpdateSchedule } from "./cron";
 import { depositMenu, startMenu, walletMenu } from "./menus";
 import { BotErrorHandler, GlobalMiddleware, UserMiddleware } from "./middleware";
@@ -24,8 +25,9 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.initializeRedisSession);
 
-    startMenu(bot);
+    bot.on('text', GlobalController.handleMessage);
 
+    startMenu(bot);
     walletMenu(bot);
     depositMenu(bot);
 
