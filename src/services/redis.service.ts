@@ -35,4 +35,20 @@ export class RedisService {
         const key = `CURRENT_ACTION_${chatId}`;
         this.client.set(key, action);
     }
+
+    async setValue(key: string, value: string, ttl?: number) {
+        if (ttl) {
+            await this.client.set(key, value, { EX: ttl });
+        } else {
+            await this.client.set(key, value);
+        }
+    }
+
+    async getValue(key: string): Promise<string | null> {
+        return this.client.get(key);
+    }
+
+    async delete(key: string) {
+        return this.client.del(key);
+    }
 }
