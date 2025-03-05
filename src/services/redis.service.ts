@@ -1,13 +1,12 @@
-import { createClient, RedisClientType } from "redis";
+import { RedisClientType } from "redis";
 
-import APP_SETTINGS from "../config";
-
+import { client } from './redis';
 
 export class RedisService {
     client: RedisClientType;
 
     constructor() {
-        this.client = createClient({ url: APP_SETTINGS.REDIS_URL });
+        this.client = client;
     }
 
     async setPendingBuyPrompt(chatId: number, messageId: number) {

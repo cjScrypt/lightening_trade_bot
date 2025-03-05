@@ -1,3 +1,4 @@
+export * from "./redis";
 export * from "./redis.service";
 export * from "./stonfi.service"
 export * from "./tonapi.service";
