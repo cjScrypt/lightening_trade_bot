@@ -25,11 +25,11 @@ export const setupBot = () => {
     bot.use(UserMiddleware.addUserToContext);
     bot.use(GlobalMiddleware.initializeRedisSession);
 
-    bot.on('text', GlobalController.handleMessage);
-
     startMenu(bot);
     walletMenu(bot);
     depositMenu(bot);
+
+    bot.on('text', GlobalController.handleTextMessage);
 
     bot.catch(BotErrorHandler);
 
