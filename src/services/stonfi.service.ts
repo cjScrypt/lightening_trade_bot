@@ -1,3 +1,4 @@
+import { StonApiClient } from "@ston-fi/api";
 import { DEX, pTON } from "@ston-fi/sdk";
 import { RouterV2_1 } from "@ston-fi/sdk/dist/contracts/dex/v2_1/router/RouterV2_1";
 import { PtonV2_1 } from "@ston-fi/sdk/dist/contracts/pTON/v2_1/PtonV2_1";
@@ -7,15 +8,16 @@ import { TonApiService } from "./";
 import APP_SETTINGS from "../config";
 
 
-export class StonFiService {
+export class StonFiService extends StonApiClient {
     connection: TonApiService;
     router: OpenedContract<RouterV2_1>;
     proxyTon: PtonV2_1;
 
     constructor() {
+        super();
         this.connection = new TonApiService();
         this.router = this.connection.openContract(DEX.v2_1.Router.create(APP_SETTINGS.ROUTER_ADDRESS));
-        this.proxyTon = pTON.v2_1.create(APP_SETTINGS.PROXY_TON_ADDRESS)
+        this.proxyTon = pTON.v2_1.create(APP_SETTINGS.PROXY_TON_ADDRESS);
     }
 
     async buyJetton(data: {

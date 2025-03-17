@@ -15,6 +15,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.0.1",
+    "@ston-fi/api": "^0.21.0",
     "@ston-fi/sdk": "^2.2.1",
     "@ton/core": "^0.60.0",
     "@ton/crypto": "^3.3.0",
