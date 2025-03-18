@@ -4,3 +4,4 @@ migrations/
 dist/
 dev.db*
 package-lock.json
+scripts/
