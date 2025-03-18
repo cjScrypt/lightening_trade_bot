@@ -9,6 +9,7 @@ export class GlobalController {
 
         if ((new WalletService()).isWalletAddress(text)) {
             TradeHandler.showTokenInfo(ctx);
+            return next();
         }
     }
 }

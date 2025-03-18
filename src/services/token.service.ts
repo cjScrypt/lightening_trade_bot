@@ -1,6 +1,7 @@
 import { KnownAssetRepository } from "../database/repository";
 import { RedisService } from "./redis.service";
 import { StonFiService } from "./stonfi.service";
+import { JettonMetadata } from "../interfaces";
 
 export class TokenService {
     knownAssetRepository: KnownAssetRepository;
@@ -15,7 +16,7 @@ export class TokenService {
 
     async getJettonMetadata(contractAddress: string) {
         const key = `${contractAddress}_metadata`;
-        const data = await this.redisService.getValue(key);
+        const data = await this.redisService.getValue(key) as JettonMetadata;
         if (data) {
             return data;
         }
@@ -27,7 +28,7 @@ export class TokenService {
             return null;
         }
 
-        const metadata = {
+        const metadata: JettonMetadata = {
             name: responseData[0].baseToken.name,
             symbol: responseData[0].baseToken.symbol,
             price: responseData[0].priceUsd,
