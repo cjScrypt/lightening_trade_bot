@@ -35,7 +35,9 @@ export class RedisService {
         this.client.set(key, action);
     }
 
-    async setValue(key: string, value: string, ttl?: number) {
+    async setValue(key: string, v: any, ttl?: number) {
+        const value = JSON.stringify(v);
+
         if (ttl) {
             await this.client.set(key, value, { EX: ttl });
         } else {
@@ -43,8 +45,13 @@ export class RedisService {
         }
     }
 
-    async getValue(key: string): Promise<string | null> {
-        return this.client.get(key);
+    async getValue(key: string) {
+        const data = await this.client.get(key);
+        if (!data) {
+            return null;
+        }
+
+        return JSON.parse(data);
     }
 
     async delete(key: string) {
