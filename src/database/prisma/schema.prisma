@@ -37,9 +37,9 @@ model Wallet {
 }
 
 model KnownAsset {
-    id          Int         @id @default(autoincrement())
+    id                  Int         @id @default(autoincrement())
     contractAddress     String
     symbol              String
-    displayName         String
-    imageUrl            String
+    displayName         String?
+    imageUrl            String?
 }
