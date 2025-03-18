@@ -14,31 +14,27 @@ export class TokenService {
     }
 
     async getJettonMetadata(contractAddress: string) {
-        let knownAsset = await this.knownAssetRepository.findOne({ contractAddress });
-        if (knownAsset) {
-            const key = `${knownAsset.contractAddress}_price`;
-            const price = await this.redisService.getValue(key);
-            return {
-                ...knownAsset,
-                price
-            }
+        const key = `${contractAddress}_metadata`;
+        const data = await this.redisService.getValue(key);
+        if (data) {
+            return data;
         }
 
-        const asset = await this.stonFiService.getAssetByAddress(contractAddress);
-        if (!asset) {
+        const url = `https://api.dexscreener.com/tokens/v1/ton/${contractAddress}`;
+        const response = await fetch(url);
+        const responseData = await response.json();
+        if (responseData.length == 0) {
             return null;
         }
 
-        knownAsset = await this.knownAssetRepository.create({
-            contractAddress: asset.contractAddress,
-            symbol: asset.symbol,
-            displayName: asset.displayName,
-            imageUrl: asset.imageUrl
-        });
-        
-        return {
-            ...knownAsset,
-            price: asset.dexPriceUsd
+        const metadata = {
+            name: responseData[0].baseToken.name,
+            symbol: responseData[0].baseToken.symbol,
+            price: responseData[0].priceUsd,
+            marketCap: responseData[0].marketCap,
         }
+        await this.redisService.setValue(key, metadata);
+
+        return metadata;
     }
 }
